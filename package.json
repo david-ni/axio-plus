@@ -2,9 +2,12 @@
   "name": "axio-plus",
   "version": "0.0.1",
   "description": "axio-plus",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "node_modules/.bin/webpack --config config/webpack.prod.js",
+    "build:lib": "node_modules/.bin/tsc",
+    "build:prod:min": "node_modules/.bin/webpack --config config/webpack.prod.js",
+    "build": "npm run build:lib && npm run build:prod:min",
+    "clean": "rm -rf lib dist",
     "test": "node_modules/.bin/jest"
   },
   "repository": {

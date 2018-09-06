@@ -7,6 +7,7 @@ const path = require('path');
 const webpackMerge = require('webpack-merge');
 const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpackCommonConfig = require('./webpack.common');
+const packageName = require('../package.json').name;
 const entryPath = path.resolve(__dirname,'../index.ts');
 const buildPath = path.resolve(__dirname,'../dist');
 
@@ -14,7 +15,7 @@ module.exports = webpackMerge(webpackCommonConfig,{
     entry: entryPath,
     output: {
         path: buildPath,
-        filename: 'axioplus.min.js'
+        filename: `${packageName}.min.js`
     },
     mode: 'production',
     optimization: {
