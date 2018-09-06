@@ -4,7 +4,7 @@
   "description": "axio-plus",
   "main": "index.js",
   "scripts": {
-    "build-prod": "node_modules/.bin/webpack --config config/webpack.prod.js",
+    "build": "node_modules/.bin/webpack --config config/webpack.prod.js",
     "test": "node_modules/.bin/jest"
   },
   "repository": {
