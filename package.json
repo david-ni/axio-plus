@@ -1,0 +1,35 @@
+{
+  "name": "axio-plus",
+  "version": "0.0.1",
+  "description": "axio-plus",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/superTerrorist/axio-plus.git"
+  },
+  "keywords": [
+    "http",
+    "axio",
+    "rxjs"
+  ],
+  "author": "david wang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/superTerrorist/axio-plus/issues"
+  },
+  "homepage": "https://github.com/superTerrorist/axio-plus#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "rxjs": "^6.3.2"
+  },
+  "devDependencies": {
+    "ts-loader": "^5.0.0",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "webpack": "^4.17.2",
+    "webpack-dev-server": "^3.1.7",
+    "webpack-merge": "^4.1.4"
+  }
+}
