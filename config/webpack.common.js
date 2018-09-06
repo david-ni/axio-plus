@@ -4,7 +4,7 @@
  */
 module.exports = {
     resolve: {
-        extensions: ['.ts']
+        extensions: [ '.ts', '.tsx', ".js", ".json"]
     },
     module: {
         rules: [

@@ -4,6 +4,7 @@
   "description": "axio-plus",
   "main": "index.js",
   "scripts": {
+    "build-prod": "node_modules/.bin/webpack --config config/webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,8 +28,10 @@
   },
   "devDependencies": {
     "ts-loader": "^5.0.0",
+    "typescript": "^3.0.3",
     "uglifyjs-webpack-plugin": "^1.3.0",
     "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.7",
     "webpack-merge": "^4.1.4"
   }
