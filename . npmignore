@@ -1,0 +1,15 @@
+/_tests_
+/config
+/example
+/node_modules
+/src
+
+.vscode
+.DS_Store
+.npmignore
+.gitignore
+index.ts
+tsconfig.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
