@@ -4,10 +4,10 @@
  */
 
 import Axios from 'axios';
-import { Observable, of, config } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { filter, map, catchError } from 'rxjs/operators';
 import { HttpConfigType,HttpRequestOptionsType } from "./type";
-import { HttpErrorCodeType, HttpEventType, HttpObserveType } from './enum';
+import { HttpErrorCodeType, HttpObserveType } from './enum';
 import { HTTP_DEFAULT_CONFIG, HTTP_DEFAULT_REQUEST_OPTION } from './const';
 import {
 	HttpUploadProgressEvent,
