@@ -1,12 +1,23 @@
 # AxioPlus
 
-## Describe
+## Installation
 
-## PreRequire
-基于Axios和Rxjs开发
+Using npm:
+```
+npm install axio-plus 
+```
+using yarn:
+```
+npm install axio-plus
+```
 
-## Usage
-
-- Api
-
-## Regular
+## Api
+```
+//todo
+```
+## Example
+```
+//todo
+```
+## License
+ISC
