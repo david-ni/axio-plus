@@ -47,10 +47,10 @@ class HttpClient {
 		let queryKeys = Object.keys(params);
 		let array = [];
 		for (let key of queryKeys) {
-			if (typeof queryKeys[key] !== 'undefined') {
+			if (typeof params[key] !== 'undefined') {
 				array.push(
 					`${encodeURIComponent(key)}=${encodeURIComponent(
-						queryKeys[key]
+						params[key]
 					)}`
 				);
 			}
