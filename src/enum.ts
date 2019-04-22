@@ -35,7 +35,9 @@ export enum HttpErrorCodeType{
 	//未授权
 	UnAuth = 'unauth',
 	//404
-	NotFound = 'notfound'
+	NotFound = 'notfound',
+	// unknow
+	UnKnow = 'unknow'
 };
 
 /**

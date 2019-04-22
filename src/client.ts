@@ -14,12 +14,14 @@ import {
 	HttpDownloadProgressEvent,
 	HttpResponseError
 } from './response';
+import { PubSub } from "./pubsub";
 
 class HttpClient {
 	/** @private 公共头部 */
 	private _commonHeader: Object = {};
 	/** @private 全局配置项 */
 	private _config: HttpConfigType = {};
+	private _pubsub: PubSub = new PubSub();
 	/**
 	 * @private 判断是否是合法的请求方法
 	 * @param { string } method 方法名
@@ -124,10 +126,12 @@ class HttpClient {
 				}
 			})
 			.then((response) => {
+				console.log("success");
 				observer.next(response);
 				observer.complete();
 			})
 			.catch((error) => {
+				console.log("error");
 				observer.error(
 					new HttpResponseError(
 						error.response || error.request || error,
@@ -177,24 +181,15 @@ class HttpClient {
 	 * @return { void }
 	 */
 	private _handleResponseError(err: HttpResponseError, options:HttpRequestOptionsType):void{
-		//消息配置项
-		let returnErrorMessage = options.returnErrorMessage;
-		let config = null;
 		//错误码
 		let status = err.status;
-		if(!returnErrorMessage || typeof returnErrorMessage !== 'object') return;
+		let errorType;
 		//处理一些常见的 status
-		if(status >= 500) config = returnErrorMessage[HttpErrorCodeType.Server];
-		if(status === 0) config = returnErrorMessage[HttpErrorCodeType.Offline];
-		if(status === 401) config = returnErrorMessage[HttpErrorCodeType.UnAuth];
-		if(status === 404) config = returnErrorMessage[HttpErrorCodeType.NotFound];
-		if(!config) return;
-		if(typeof config.content === 'function') {
-			config.content(err, options);
-		}else{
-			//todo 默认处理函数
-			console.error(err);
-		}
+		if(status >= 500) errorType = HttpErrorCodeType.Server;
+		if(status === 0) errorType = HttpErrorCodeType.Offline;
+		if(status === 401) errorType = HttpErrorCodeType.UnAuth;
+		if(status === 404) errorType = HttpErrorCodeType.NotFound;
+		this._pubsub.emit(errorType,err,options);
 	}
 
 	/**
@@ -206,7 +201,20 @@ class HttpClient {
 	setCommonHeader(key:string, value:any):void{
 		this._commonHeader[key] = value;
 	}
-
+	/**
+	 * 监听 
+	 */
+	listen(handle: (topic: string,err: HttpResponseError,options: HttpRequestOptionsType) => void):void{
+		for(let key in HttpErrorCodeType){
+			const type = HttpErrorCodeType[key];
+			const callback = function(){
+				return (err,options)=>{
+					handle(type,err,options);
+				};
+			};
+			this._pubsub.on(type,callback());
+		}
+	}
 	/**
 	 * @private 发送请求
 	 * @param { string } method 请求方法
@@ -265,7 +273,6 @@ class HttpClient {
 			})
 		);
 	}
-
 	/**
 	 * 初始化
 	 * @param { object } config 配置项
@@ -290,7 +297,7 @@ class HttpClient {
 }
 
 export default {
-	createClient: (config)=>{
+	createClient: (config: HttpConfigType)=>{
 		return new HttpClient().init(config);
 	}
 }

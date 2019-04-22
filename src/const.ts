@@ -20,8 +20,7 @@ export const HTTP_DEFAULT_CONFIG:HttpConfigType = {
 		data: 'data',
 		message: 'message'
 	},
-	successCode: [0],
-	returnErrorMessage: {}
+	successCode: [0]
 };
 
 /**

@@ -72,7 +72,7 @@ export interface HttpConfigType{
     /**
      * 自定义请求失败时返回的消息 
      */
-    returnErrorMessage?: {[code:string]: string},
+    //returnErrorMessage?: {[code:string]: string},
     /**
      * validateStatus 
      */
