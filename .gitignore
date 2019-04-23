@@ -1,11 +1,36 @@
-/node_modules
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
-/dist
-/lib
-
-.vscode
-.DS_Store
-
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# production
+/build
+/dist
+/lib
+
+# misc
+.DS_Storet
+
+# editor
+.vscode
+
+# lockfile
+package-lock.json
+yarn-lock.json
