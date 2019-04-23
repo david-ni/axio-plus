@@ -126,12 +126,10 @@ class HttpClient {
 				}
 			})
 			.then((response) => {
-				console.log("success");
 				observer.next(response);
 				observer.complete();
 			})
 			.catch((error) => {
-				console.log("error");
 				observer.error(
 					new HttpResponseError(
 						error.response || error.request || error,
@@ -204,7 +202,7 @@ class HttpClient {
 	/**
 	 * 监听 
 	 */
-	listen(handle: (topic: string,err: HttpResponseError,options: HttpRequestOptionsType) => void):void{
+	listen(handle: (topic: string,err: HttpResponseError,options: HttpRequestOptionsType) => void):Function{
 		for(let key in HttpErrorCodeType){
 			const type = HttpErrorCodeType[key];
 			const callback = function(){
@@ -214,6 +212,7 @@ class HttpClient {
 			};
 			this._pubsub.on(type,callback());
 		}
+		return this._pubsub.clear;
 	}
 	/**
 	 * @private 发送请求
