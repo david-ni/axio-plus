@@ -1,6 +1,6 @@
 {
   "name": "axio-plus",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "axio-plus",
   "main": "lib/index.js",
   "scripts": {

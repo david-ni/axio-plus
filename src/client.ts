@@ -22,6 +22,11 @@ class HttpClient {
 	/** @private 全局配置项 */
 	private _config: HttpConfigType = {};
 	private _pubsub: PubSub = new PubSub();
+
+	constructor(config:HttpConfigType = {}){
+		this._config = { ...HTTP_DEFAULT_CONFIG, ...config };
+	}
+
 	/**
 	 * @private 判断是否是合法的请求方法
 	 * @param { string } method 方法名
@@ -214,6 +219,7 @@ class HttpClient {
 		}
 		return this._pubsub.clear;
 	}
+
 	/**
 	 * @private 发送请求
 	 * @param { string } method 请求方法
@@ -272,31 +278,46 @@ class HttpClient {
 			})
 		);
 	}
+
 	/**
-	 * 初始化
-	 * @param { object } config 配置项
-	 * @return { void }
+	 * post请求 
+	 * @param body
+	 * @param options
 	 */
-	init(config:HttpConfigType = {}) {
-		this._config = { ...HTTP_DEFAULT_CONFIG, ...config };
-		['post'].forEach((method) => {
-			this[method] = function(url, body, options:HttpRequestOptionsType = {}) {
-				options.body = body || {};
-				return this.request(method, url, options);
-			};
-		});
-		['get', 'put', 'delete'].forEach((method) => {
-			this[method] = function(url, body, options:HttpRequestOptionsType = {}) {
-				options.params = body || {};
-				return this.request(method, url, options);
-			};
-		});
-		return this;
+	post(url: string,body: any = {},options:HttpRequestOptionsType={}){
+		return this.request("post",url,{ ...options,body });
+	}
+
+	/**
+	 * get
+	 * @param params
+	 * @package options
+	 */
+	get(url: string,params: any = {},options: HttpRequestOptionsType = {}){
+		return this.request("get",url,{ ...options,params })
+	}
+
+	/**
+	 * put
+	 * @param params
+	 * @package options
+	 */
+	put(url: string,params: any = {},options: HttpRequestOptionsType = {}){
+		return this.request("put",url,{ ...options,params })
+	}
+
+	/**
+	 * delete
+	 * @param params
+	 * @package options
+	 */
+	delete(url: string,params: any = {},options: HttpRequestOptionsType = {}){
+		return this.request("delete",url,{ ...options,params })
 	}
 }
 
 export default {
 	createClient: (config: HttpConfigType)=>{
-		return new HttpClient().init(config);
+		return new HttpClient(config);
 	}
 }
