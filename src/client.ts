@@ -16,16 +16,14 @@ import {
 } from './response';
 import { PubSub } from "./pubsub";
 
-class HttpClient {
+export class HttpClient {
 	/** @private 公共头部 */
 	private _commonHeader: Object = {};
+	/** 是否初始化 */
+	private _inited: boolean = false;
 	/** @private 全局配置项 */
 	private _config: HttpConfigType = {};
 	private _pubsub: PubSub = new PubSub();
-
-	constructor(config:HttpConfigType = {}){
-		this._config = { ...HTTP_DEFAULT_CONFIG, ...config };
-	}
 
 	/**
 	 * @private 判断是否是合法的请求方法
@@ -196,6 +194,16 @@ class HttpClient {
 	}
 
 	/**
+	 * 初始化 
+	 */
+	init(config:HttpConfigType = {}){
+		if(this._inited) return this;
+		this._config = { ...HTTP_DEFAULT_CONFIG, ...config };
+		this._inited = true;
+		return this;
+	}
+
+	/**
 	 * 设置公共头
 	 * @param { string } key header key
 	 * @param { any } value header value
@@ -227,7 +235,8 @@ class HttpClient {
 	 * @param { HttpRequestOptionType } options 配置
 	 * @return { Object } < Observable<any> >
 	 */
-	request(method: string, url: string, options:HttpRequestOptionsType = {}) {
+	request(method: string, url: string, options:HttpRequestOptionsType = {}):Observable<{result: any,response: any,isSuccess: boolean}>{
+		if(!this._inited) throw new Error("please call init first");
 		let config = this._config;
 		//拼合配置项
 		options = { ...HTTP_DEFAULT_REQUEST_OPTION, ...config, ...options };
@@ -317,7 +326,7 @@ class HttpClient {
 }
 
 export default {
-	createClient: (config: HttpConfigType)=>{
-		return new HttpClient(config);
+	createClient: ()=>{
+		return new HttpClient();
 	}
 }
