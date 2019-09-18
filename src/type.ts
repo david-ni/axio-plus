@@ -86,25 +86,31 @@ export interface HttpRequestOptionsType extends HttpConfigType{
     /**
      * body 
      */
-    body?: any,
+    body?: any;
     /**
      * 请求头 
      */
-    header?: {[header:string]: string},
+    header?: {[header:string]: string};
     /**
      * 附加到url上的参数
      */
-    params?: {[param:string]: string},
+    params?: {[param:string]: string};
     /**
      * 返回的响应体类型
      */
-    observe?: HttpObserveType,
+    observe?: HttpObserveType;
     /**
      * 返回的body的类型
      */
-    responseType?: 'arraybuffer'|'blob'|'json'|'text',
+    responseType?: 'arraybuffer'|'blob'|'json'|'text';
     /**
      * 是否允许携带身份信息（cookie等） 
      */
-    withCredentials?: boolean
+    withCredentials?: boolean;
+    /**
+     * timeout 
+     * https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout
+     */
+    timeout?: number;
+
 }

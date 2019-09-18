@@ -29,5 +29,6 @@ export const HTTP_DEFAULT_CONFIG:HttpConfigType = {
 export const HTTP_DEFAULT_REQUEST_OPTION:HttpRequestOptionsType = {
 	observe: HttpObserveType.Body,
 	responseType: 'json',
-	withCredentials: false
+	withCredentials: false,
+	timeout: 0
 };

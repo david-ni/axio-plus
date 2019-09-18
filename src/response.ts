@@ -81,16 +81,26 @@ export class HttpResponseError{
 	 * 返回数据
 	 */
 	readonly data: any;
-	constructor(response:any = {}, options:HttpRequestOptionsType = {}) {
-		let data = response.data;
-		let responseKey = options.responseResultKey;
-		let status = this.status = response.status;
-		this.statusText = response.statusText;
-		this.headers = response.headers;
-		this.message = data
-			? data[responseKey.message] || response.message
-			: response.message;
-		this.errorCode = data ? data[responseKey.code] : status;
-		this.data = data;
+	constructor(
+		error:any = {}, 
+		options:HttpRequestOptionsType = {}
+	){
+		const response = error.response;
+		// 如果有返回请求有收到反馈
+		if(response){
+			let data = response.data;
+			let responseKey = options.responseResultKey;
+			let status = this.status = response.status;
+			this.statusText = response.statusText;
+			this.headers = response.headers;
+			this.message = data
+				? data[responseKey.message] || response.message
+				: response.message;
+			this.errorCode = data ? data[responseKey.code] : status;
+			this.data = data;
+		}else{
+			this.errorCode = error.code;
+			this.message = error.message;
+		}
 	}
 }

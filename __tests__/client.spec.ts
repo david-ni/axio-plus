@@ -2,24 +2,37 @@
  * @file 测试用例
  * @author david wang 
  */
-import process from "process";
 import { AxioPlus } from "../index";
 import { HttpErrorCodeType } from "../src/enum";
 describe('http client',()=>{
-    test('post',()=>{
+    test('post',(done)=>{
         const httpClient = AxioPlus.createClient();
         httpClient.init({baseUrl: "http://192.168.30.20/"});
         httpClient.post('/',{})
             .subscribe(({result,response})=>{
                 expect(result).toBe(null);
+                done();
             })
     });
-    test('get',()=>{
+    test('get',(done)=>{
         const httpClient = AxioPlus.createClient();
         httpClient.init({baseUrl: "http://192.168.30.20/"});
         httpClient.get('/',{'example': '2'})
             .subscribe(({result,response})=>{
-                console.log(response);
+                expect(result).toBe(null);
+                done();
+            })
+    });
+    test('timeout',(done)=>{
+        const httpClient = AxioPlus.createClient();
+        httpClient.init({baseUrl: "http://100.100.1.110"});
+        httpClient.get('/',{'example': '2'},{ timeout: 2000 })
+            .subscribe(({result,response,isSuccess})=>{
+                expect(isSuccess).toBe(false);
+                expect(response.message).toEqual(
+                    expect.stringMatching(/timeout/g)
+                );
+                done();
             })
     });
     test('listen notFound',(done)=>{

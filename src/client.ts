@@ -111,6 +111,7 @@ export class HttpClient {
 				headers: header,
 				withCredentials: !!options.withCredentials,
 				responseType: options.responseType || 'json',
+				timeout: options.timeout || 0,
 				onUploadProgress: function(progressEvent) {
 					observer.next(new HttpUploadProgressEvent(progressEvent));
 				},
@@ -135,7 +136,7 @@ export class HttpClient {
 			.catch((error) => {
 				observer.error(
 					new HttpResponseError(
-						error.response || error.request || error,
+						error,
 						options
 					)
 				);
