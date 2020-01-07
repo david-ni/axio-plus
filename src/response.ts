@@ -85,7 +85,7 @@ export class HttpResponseError{
 		error:any = {}, 
 		options:HttpRequestOptionsType = {}
 	){
-		const response = error.response;
+		const response = error;
 		// 如果有返回请求有收到反馈
 		if(response){
 			let data = response.data;
